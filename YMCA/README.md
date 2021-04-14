@@ -1,3 +1,6 @@
+# Authors
+
+Timothy Thoman and Gabe Veldboom
 
 # YMCA Web Application
 
