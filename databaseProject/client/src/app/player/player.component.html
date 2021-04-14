@@ -1,0 +1,104 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Add Player</h5>
+              <div class="playerInfo">
+                <input type="text" placeholder="First Name" [(ngModel)]="addFN">
+                <input type="text" placeholder="Last Name" [(ngModel)]="addLN">
+                <input type="text" placeholder="Position" [(ngModel)]="addPos">
+                <input type="text" placeholder="Age" [(ngModel)]="addAge">
+                <input type="text" placeholder="#" [(ngModel)]="addNum">
+                <input type="text" placeholder="Team Name" [(ngModel)]="addTN">
+              </div>
+              <button class="btn btn-primary" (click)="addPlayer()">Add</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Delete Player</h5>
+                <div class="playerInfo delInfo">
+                    <input type="text" placeholder="First Name"[(ngModel)]="delFN">
+                    <input type="text" placeholder="Last Name" [(ngModel)]="delLN">
+                </div>
+                <button class="btn btn-primary" id="del" (click)="deletePlayer()">Delete</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="card mt-4">
+        <div class="card-body">
+          <h5 class="card-title">Player Info</h5>
+          <div class="searchInfo">
+            <input type="text" placeholder="First Name" [(ngModel)]="infoFN">
+            <input type="text" placeholder="Last Name" [(ngModel)]="infoLN">
+            <input type="text" placeholder="Position" [(ngModel)]="infoPos">
+            <input type="text" placeholder="Age" [(ngModel)]="infoAge">
+            <input type="text" placeholder="#" [(ngModel)]="infoNum">
+            <input type="text" placeholder="Team Name" [(ngModel)]="infoTN">
+          </div>
+          <button class="btn btn-primary" (click)="searchPlayer()">Search</button>
+        </div>
+    </div>
+    <div class="card mt-4">
+        <div class="card-body">
+          <h5 class="card-title">Player Stats</h5>
+          <div class="statInfo">
+            <input type="text" placeholder="Stat" [(ngModel)]="stat">
+            <select class="form-control" id="relation" name="relation" [(ngModel)]="symbol">
+                <option [ngValue]="GTE">Greater than or equal</option> 
+                <option [ngValue]="GT">Greater than</option>
+                <option [ngValue]="EQ">Equal</option>
+                <option [ngValue]="LT">Less than</option>
+                <option [ngValue]="LTE">Less than or equal</option>
+            </select>
+            <input type="text" placeholder="Value" [(ngModel)]="amount">
+          </div>
+          <button class="btn btn-primary" (click)="searchStats()">Search</button>
+        </div>
+    </div>
+    <div class="card mt-4">
+      <div class="card-body">
+        <h5 class="card-title">Player Rank Range</h5>
+        <div class="statInfo">
+          <input type="text" placeholder="Player rank" [(ngModel)]="playerRank">
+          <span>To</span>
+          <input type="text" placeholder="Range" [(ngModel)]="range">
+        </div>
+        <button class="btn btn-primary" (click)="searchRange()">Get</button>
+      </div>
+  </div>
+    <div *ngFor="let player of players" class="card playerCards" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{player.FirstName}} {{player.LastName}}</h5>
+        <p class="card-text">{{player.TeamName}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Position: {{player.Position}}</li>
+        <li class="list-group-item">#{{player.PlayerNum}}</li>
+        <li class="list-group-item">Age: {{player.Age}}</li>
+      </ul>
+    </div>
+    <div *ngFor="let stats of playerStats" class="card playerCards" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{stats.FirstName}} {{stats.LastName}}</h5>
+        <p class="card-text">{{stats.TeamName}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Rank: {{stats.PlayerRank}}</li>
+        <li class="list-group-item">Touchdowns: {{stats.TouchDowns}}</li>
+        <li class="list-group-item">Sacks: {{stats.Sacks}}</li>
+        <li class="list-group-item">Interceptions: {{stats.Interceptions}}</li>
+        <li class="list-group-item">Receiving Yards: {{stats.ReceivingYards}}</li>
+      </ul>
+    </div>
+    <div *ngFor="let rank of ranks" class="card playerCards" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{rank.FirstName}} {{rank.LastName}}</h5>
+        <p class="card-text">{{rank.PlayerRank}}</p>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+.container-top {
+    margin-top: 50px;
+}
+
+.btn {
+    margin-left: 5px; 
+}
+
+.thead-light {
+    text-align: center;
+}
+label {
+    padding-right: 15px;
+}
+.main-table {
+    text-align: center;
+}
+
+.main-table {height:50x}
+.main-table {overflow:hidden;  max-height:400px; overflow-y:scroll;}
+
+#search-btn {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}

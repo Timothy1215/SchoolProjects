@@ -1,0 +1,46 @@
+<div class="container container-top">
+    <div class="card main">
+        <div *ngIf="!isStaffView" class="card-header">
+            <h3  style="text-align: center;"><strong>My Programs</strong></h3>
+            <button class="btn btn-primary pull-right" [routerLink]="['/home']">More Programs</button>
+        </div>
+        <div class="card-body menu">
+            <div *ngIf="!isStaffView" class="row">
+                <div class="col-md-9">
+                  <form [formGroup]="searchForm">
+                    <label for="search">Search by Name</label>
+                    <input type="text" class="form-control" id="search" formControlName="searchInput">
+                  </form>
+                </div>
+                <div class="col-md-3">
+                  <button id="search-btn" (click)="searchByName()" class="btn btn-primary">Apply Filter</button>
+                  <button id="search-btn" (click)="clearFilter()" class="btn btn-danger">Clear Filter</button>
+                </div>
+            </div> 
+            <div class="main-table">
+            <table class="table table-hover">
+                <thead class="thead-light">
+                     <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Day of Week</th>
+                        <th>Time</th>
+                        <th>Start and End Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let program of programs">
+                        <td>{{program.name}}</td>
+                        <td>{{program.location}}</td>
+                        <td>{{program.day}}</td> 
+                        <td>{{program.startTime}} - {{program.endTime}}</td>
+                        <td>{{program.startDate}} - {{program.endDate}}</td>
+                        <td><button class="btn btn-danger" (click)="cancel(program)">Cancel</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>

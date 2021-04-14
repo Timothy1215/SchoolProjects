@@ -1,0 +1,15 @@
+<div class="container">
+    <div *ngFor="let location of locations" class="card location mt-5 content">
+        <button type="button" class="close btn btn-danger float-right" aria-label="Close" (click)="removeLocation(location.id)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="card-body">
+            <div class="d-inline-block">
+                <h5>{{location.name}}</h5>
+                <span class="d-block">{{location.description}}</span>
+                <span class="d-block">{{location.temp}} and {{location.weather}}</span>
+            </div>
+            <img class="float-right mr-4" src="./assets/general.jpeg">
+        </div>
+    </div>
+</div>

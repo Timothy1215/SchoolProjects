@@ -1,0 +1,43 @@
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>Register</h3>
+			</div>
+			<div class="card-body">
+				<form>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fa fa-user"></i></span>
+						</div>
+						<input id="fname" name="fname" type="text" class="form-control" placeholder="First Name" [(ngModel)]="fname">
+                    </div>
+                    <div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fa fa-user"></i></span>
+						</div>
+						<input id="lname" name="lname" type="text" class="form-control" placeholder="Last Name" [(ngModel)]="lname">
+                    </div>
+                    <div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fa fa-user"></i></span>
+						</div>
+						<input id="fname" name="fname" type="text" class="form-control" placeholder="Username" [(ngModel)]="username">
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fa fa-key"></i></span>
+						</div>
+						<input id="password" name="password" type="password" class="form-control" placeholder="Password" [(ngModel)]="password">
+					</div>
+				</form>
+			</div>
+			<div class="card-footer text-muted">
+				<div>
+					<button type="submit" class="btn btn-success btn-primary float-left" (click)="attemptRegister()">Register</button>
+					<button class="btn btn-secondary cancel-button" routerLink="/login">Cancel</button>
+				</div>
+			  </div>
+		</div>
+	</div>
+</div>

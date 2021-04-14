@@ -1,0 +1,39 @@
+.container{
+    margin: 5em 2.5em;
+}
+
+.playerInfo *{
+    margin: .5em;
+}
+.searchInfo *{
+    margin: 0 .25em 1em 0;
+}
+
+.statInfo *{
+    margin: 1em 3em;
+}
+.card{
+    height: 100%;
+}
+
+#del{
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+}
+
+.delInfo{
+    position: absolute;
+    top: 40%;
+}
+
+select{
+    width: auto;
+    display: inline-block;
+}
+
+.playerCards{
+    display: inline-block;
+    margin: 1em;
+}
+

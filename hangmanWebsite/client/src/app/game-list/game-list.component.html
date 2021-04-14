@@ -1,0 +1,23 @@
+<div class="container content">
+    <div class="heading">
+      <span class="lvl font-weight-bold">Level</span>
+      <span class="phr font-weight-bold">Phrase</span>
+      <span class="rem font-weight-bold">Remaining</span>
+      <span class="ans font-weight-bold">Answer</span>
+      <span class="sta font-weight-bold">Status</span>
+    </div>
+    <div *ngFor="let game of games" (click)="resume(game.id)" class="games">
+        <span class="lvl">{{game.level.name}}</span>
+        <div class="view phr">
+            <span *ngFor="let ele of createArray(game.view); let i = index;"
+                [ngStyle]="{'background-color': game.colors.wordBackground, 'color': game.colors.textBackground, 'font-size': 'medium', 'font-family': game.font.family}"
+                class="letters">{{game.view.charAt(i)}}</span>
+        </div>
+        <span class="rem rounds">{{game.remaining}}</span>
+        <span class="ans" *ngIf="game.status == 'unfinished'; else done"></span>
+        <span class="sta">{{game.status}}</span>
+        <ng-template #done>
+            <span class="ans">{{game.target}}</span>
+        </ng-template>
+    </div>
+</div>

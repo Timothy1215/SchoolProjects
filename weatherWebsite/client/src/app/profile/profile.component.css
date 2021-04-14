@@ -1,0 +1,26 @@
+.container{
+    margin: 5em 5em;
+    color: white;
+}
+
+.pic {
+    height: 6em;
+    width: 6em;
+    margin-bottom: 1em;
+}
+
+.card{
+    color: black;
+    margin-top: 1em;
+    width: 22em;
+    background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.special-img{
+    height: 100%;
+    width: 100%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    box-shadow: 1px 1px 2px black;
+}

@@ -1,0 +1,8 @@
+<div class="title">
+    <span *ngFor="let ele of createArray(10); let i=index" id="idx{{i}}" class="letters">{{'Grammarian'.charAt(i)}}</span>
+</div>
+<div class="login">
+    <input type="text" placeholder="Email" [(ngModel)]="email">
+    <input type="password" placeholder="Password" [(ngModel)]="password">
+    <button class="btn btn-primary" (click)="attemptLogin()">Login</button>
+</div>

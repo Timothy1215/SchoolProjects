@@ -1,0 +1,16 @@
+<div class="container" [ngStyle]="getBackground()">
+    <span class="rounds">{{game.remaining}} guesses remaining.</span>
+    <input type="text" [(ngModel)]="guess">
+    <button class="btn btn-primary btn-sm" (click)="guessLetter()">guess</button>
+    <button type="button" class="btn btn-danger btn-sm float-right" (click)="exit()">x</button>
+    <div class="guesses" style="overflow: hidden;">
+        <span *ngFor="let ele of createArray(game.guesses); let i=index"
+                    [ngStyle]="{'background-color': game.colors.guessBackground, 'color': game.colors.textBackground, 'font-size': 'medium', 'font-family': game.font.family}"
+                    class="letters float-right">{{game.guesses.charAt(i)}}</span>
+    </div>
+    <div class="view playing">
+        <span *ngFor="let ele of createArray(game.view); let i=index"
+                    [ngStyle]="{'background-color': game.colors.wordBackground, 'color': game.colors.textBackground, 'font-size': 'medium', 'font-family': game.font.family}"
+                    class="letters">{{game.view.charAt(i)}}</span>
+    </div>
+</div>

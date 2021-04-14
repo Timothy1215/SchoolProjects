@@ -1,0 +1,24 @@
+<div class="container">
+    <label for="fontsel" class="font-weight-bold">Font</label>
+    <select id="fontsel" name="font" [(ngModel)]="font">
+        <option *ngFor="let font of fonts" [ngValue]="font.family">{{font.family}}</option>
+    </select>
+    <label for="levelsel" class="font-weight-bold">Level</label>
+    <select id="levelsel" name="level" [(ngModel)]="level">
+        <option *ngFor="let level of levels" [ngValue]="level.name">{{level.name}}</option>
+    </select>
+    <div class="btn-group btn-group-sm colors" role="group">
+      <button class="btn btn-secondary" disabled>Word</button>
+      <input type="color" id="word" name="word" class="btn btn-secondary" [(ngModel)]="word">
+    </div>
+    <div class="btn-group btn-group-sm colors" role="group">
+      <button class="btn btn-secondary" disabled>Guess</button>
+      <input type="color" id="guess" class="btn btn-secondary" name="guess" [(ngModel)]="guess">
+    </div>
+    <div class="btn-group btn-group-sm colors" role="group">
+      <button class="btn btn-secondary" disabled>Fore</button>
+      <input type="color" id="fore" class="btn btn-secondary" name="fore" [(ngModel)]="fore">
+    </div>
+    <button (click)="play()" type="button" id="play" class="btn btn-primary btn-sm float-right">New Game</button>
+</div>
+<app-game-list></app-game-list>

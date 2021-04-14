@@ -1,0 +1,17 @@
+<div *ngIf="user" class="container">
+    <div class="pic">
+        <img [src]="url ? url : avatarImage" class="rounded-circle special-img">
+    </div>
+    <h3>{{user.firstName}} {{user.lastName}}</h3>
+    <h3>{{user.email}}</h3>
+    <h3>{{user.username}}</h3>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Update profile picture</h5>
+            <div class="form-group">
+                <input type="file" id="file" (change)="handleFileInput($event.target.files)">
+            </div> 
+            <button class="btn btn-primary" (click)="updateImage()">Submit</button>
+        </div>
+      </div>
+</div>

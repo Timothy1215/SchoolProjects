@@ -1,0 +1,12 @@
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown">
+        <div class="pic">
+            <img src="../assets/avatar.png" class="rounded-circle special-img"><b class="caret"></b>
+        </div>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="ml-2" [routerLink]="['/home']">Home</li>
+        <li class="ml-2" [routerLink]="['/help']">Help</li>
+        <li class="ml-2" (click)="logout()">Logout</li>
+    </ul>
+</li>

@@ -1,0 +1,25 @@
+.special-img {
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    height: 100%;
+    width: 100%;
+}
+
+.dropdown{
+    position: absolute;
+    right: 0;
+    margin-right: 2em;
+}
+
+ul > li{
+    cursor: pointer;
+}
+
+.pic {
+    display: inline-block;
+    height: 2.5em;
+    width: 2.5em;
+    margin-top: -10px;
+
+}

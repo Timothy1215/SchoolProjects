@@ -1,0 +1,11 @@
+Enemies Radioactive Red Red
+Classic
+48 46 23 15 10 
+No-Walls
+0 0 0 0 0 
+Timed
+19 5 0 0 0 
+Mines
+4 3 1 0 0 
+Enemies
+20 10 5 1 1 

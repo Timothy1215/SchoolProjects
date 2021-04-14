@@ -1,0 +1,22 @@
+.content{
+    width: 75%;
+    height: 10%;
+    margin: auto;
+}
+
+.container{
+    margin: 5em;
+}
+
+.card img{
+    height: 5em;
+    width: 5em;
+}
+
+.close{
+    width: 1em;
+    height: 1em;
+    position: absolute;
+    right: 0;
+    top: 0;
+}

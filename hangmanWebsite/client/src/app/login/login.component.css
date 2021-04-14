@@ -1,0 +1,70 @@
+
+
+.login{
+    padding: 5em 30em;
+    background-image: url(/assets/snow.gif);
+    background-size: cover;
+    height: 100vh;
+}
+
+.login *{
+    display: block;
+    margin: 2em 0;
+}
+
+span{
+    font-size: xxx-large;
+}
+
+.title{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 1em 5em;
+    background-color: rgb(236, 233, 233);
+    border: 1px solid gray;
+}
+
+.letters{
+    margin: 0 .1em;
+    padding:.2em;
+}
+
+#idx0{
+    background-color: red;
+}
+
+#idx1{
+    background-color: orange;
+}
+
+#idx2{
+    background-color: yellow;
+}
+
+#idx3{
+    background-color: green;
+}
+
+#idx4{
+    background-color: green;
+}
+
+#idx5{
+    background-color: yellow;
+}
+
+#idx6{
+    background-color: orange;
+}
+
+#idx7{
+    background-color: blue;
+}
+
+#idx8{
+    background-color: yellow;
+}
+
+#idx9{
+    background-color: violet;
+}

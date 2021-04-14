@@ -1,0 +1,171 @@
+<div class="container">
+  <div class="card mt-4">
+      <div class="card-body">
+        <h5 class="card-title">Search Team</h5>
+        <div class="searchInfo mb-2">
+          <input type="text" placeholder="Team Name" [(ngModel)]="sTN">
+          <input type="text" placeholder="State" [(ngModel)]="sS">
+          <input type="text" placeholder="Division" [(ngModel)]="sD">
+          <input type="text" placeholder="Conference" [(ngModel)]="sC">
+        </div>
+        <button class="btn btn-primary" (click)="findTeam()">Search</button>
+      </div>
+  </div>
+  <div class="card mt-4">
+      <div class="card-body">
+        <h5 class="card-title">Team playbook</h5>
+        <div class="searchInfo mb-2">
+          <input type="text" placeholder="Team Name" [(ngModel)]="playbookTeam">
+        </div>
+        <button class="btn btn-primary" (click)="findPlaybook()">Search</button>
+      </div>
+  </div>
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-title">Team Data</h5>
+      <div class="statInfo">
+        <input class="d-block" type="text" placeholder="Team Name" [(ngModel)]="dataName">
+        <input type="text" placeholder="Data" [(ngModel)]="dataInput">
+        <select class="form-control" id="relation" name="relation" [(ngModel)]="symbol">
+          <option [ngValue]="GTE">Greater than or equal</option> 
+          <option [ngValue]="GT">Greater than</option>
+          <option [ngValue]="EQ">Equal</option>
+          <option [ngValue]="LT">Less than</option>
+          <option [ngValue]="LTE">Less than or equal</option>
+        </select>
+        <input type="text" placeholder="Value" [(ngModel)]="amount">
+      </div>
+      <button class="btn btn-primary" (click)="searchData()">Search</button>
+    </div>
+  </div>
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-title">Team Player Count</h5>
+      <div class="statInfo">
+        <span class="mr-3">Teams with players</span>
+        <select class="form-control" id="relation" name="relation" [(ngModel)]="countSym">
+          <option [ngValue]="GTE">Greater than or equal</option> 
+          <option [ngValue]="GT">Greater than</option>
+          <option [ngValue]="EQ">Equal</option>
+          <option [ngValue]="LT">Less than</option>
+          <option [ngValue]="LTE">Less than or equal</option>
+        </select>
+        <input type="text" placeholder="Range" [(ngModel)]="range">
+      </div>
+      <button class="btn btn-primary" (click)="getPlayerCount()">Get</button>
+    </div>
+  </div>
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-title">Average</h5>
+      <p>Get the teams with an average stat higher/lower than the others.</p>
+      <div class="statInfo">
+        <select class="form-control" id="relation" name="relation" [(ngModel)]="stat">
+          <option [ngValue]="ints">Interceptions</option> 
+          <option [ngValue]="rank">Player rank</option>
+          <option [ngValue]="tds">Touchdowns</option>
+          <option [ngValue]="sacks">Sacks</option>
+          <option [ngValue]="rec">Receiving Yards</option>
+        </select>
+        <select class="form-control" id="relation" name="relation" [(ngModel)]="statSym">
+          <option [ngValue]="GT">Greater than</option>
+          <option [ngValue]="LT">Less than</option>
+        </select>
+      </div>
+      <button class="btn btn-primary mt-4" (click)="getStatAvg()">Get</button>
+    </div>
+  </div>
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-title">Division/Conference Average</h5>
+      <p>Get the teams with an average stat higher/lower than the others.</p>
+      <div class="statInfo">
+        <select class="form-control" id="relation" name="relation" [(ngModel)]="avgStat">
+          <option [ngValue]="wins">Wins</option> 
+          <option [ngValue]="losses">Losses</option>
+          <option [ngValue]="teamRank">Team Rank</option>
+          <option [ngValue]="points">Points</option>
+        </select>
+        <select class="form-control" id="relation" name="relation" [(ngModel)]="avgSym">
+          <option [ngValue]="GTE">Greater than or equal</option> 
+          <option [ngValue]="GT">Greater than</option>
+          <option [ngValue]="LT">Less than</option>
+          <option [ngValue]="LTE">Less than or equal</option>
+        </select>
+        <select class="form-control" id="relation" name="relation" [(ngModel)]="divCon">
+          <option [ngValue]="division">Division</option> 
+          <option [ngValue]="conference">Conference</option>
+        </select>
+        <select *ngIf="divCon == 'division'" class="form-control" name="relation" [(ngModel)]="divSel">
+          <option [ngValue]="east">East</option> 
+          <option [ngValue]="west">West</option>
+          <option [ngValue]="north">North</option>
+          <option [ngValue]="south">South</option>
+        </select>
+        <select *ngIf="divCon == 'conference'" class="form-control" name="relation" [(ngModel)]="conSel">
+          <option [ngValue]="afc">AFC</option> 
+          <option [ngValue]="nfc">NFC</option>
+        </select>
+      </div>
+      <button class="btn btn-primary mt-4" (click)="getDivConAvg()">Get</button>
+    </div>
+  </div>
+  <div *ngFor="let play of plays" class="card playCard" style="width: 18rem;">
+    <div class="card-header">
+      {{play.TeamName}}
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Running: {{play.Running}}</li>
+      <li class="list-group-item">passing: {{play.Passing}}</li>
+      <li class="list-group-item">Special: {{play.Special}}</li>
+      <li class="list-group-item">Pass Coverage: {{play.PassCoverage}}</li>        <li class="list-group-item">Special: {{play.Special}}</li>
+      <li class="list-group-item">Blitz: {{play.Blitz}}</li>
+    </ul>
+  </div>
+  <div *ngFor="let team of teams" class="card playCard" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{team.TeamName}}</h5>
+      <p class="card-text">{{team.State}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Division: {{team.Division}}</li>
+      <li class="list-group-item">Conference: {{team.Conference}}</li>
+    </ul>
+  </div>
+  <div *ngFor="let data of teamData" class="card playCard" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{data.TeamName}}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Rank: {{data.TeamRank}}</li>
+      <li class="list-group-item">Wins: {{data.Wins}}</li>
+      <li class="list-group-item">Losses: {{data.Losses}}</li>
+      <li class="list-group-item">Win Percentage: {{data.WinPercent}}%</li>
+      <li class="list-group-item">Points: {{data.Points}}</li>
+    </ul>
+  </div>
+  <div *ngFor="let teamCount of teamPlayers" class="card playCard" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{teamCount.TeamName}}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Number of players: {{teamCount.PlayerCount}}</li>
+    </ul>
+  </div>
+  <div *ngFor="let teamStat of teamsStat" class="card playCard" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{teamStat.TeamName}}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Average {{displayStat}}: {{teamStat.AvgAmount}}</li>
+    </ul>
+  </div>
+  <div *ngFor="let divConStat of divConStats" class="card playCard" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{divConStat.TeamName}}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Average {{divConDis}}: {{divConStat.stat}}</li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+.container-top {
+    margin-top: 50px;
+}
+
+.main-table {height:50x}
+.main-table {overflow:hidden;  max-height:400px; overflow-y:scroll;}
+
+.thead-light {
+    text-align: center;
+}
+
+#search-btn {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    margin-left: 5px; 
+}

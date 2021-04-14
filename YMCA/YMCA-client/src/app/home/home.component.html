@@ -1,0 +1,203 @@
+<div class="container container-top">
+    <div class="card main">
+        <div class="card-header">
+            <h3 style="text-align: center;"><strong>Program Listings</strong></h3>
+            <button *ngIf="isStaff " id="createNewBtn" class="btn btn-success float-right" data-toggle="modal" (click)="openCreateModal()" data-target="#programCreate">Create New Program</button>
+            <button *ngIf="!isStaff" class="btn btn-success float-right" [routerLink]="['/myprograms']">My Programs</button>
+            <button *ngIf="isStaff" class="btn btn-info float-left" [routerLink]="['/usermanage']">User Management</button>
+        </div>
+        <div class="card-body menu">
+          <div class="row">
+            <div class="col-md-9">
+              <form [formGroup]="searchForm">
+                <label for="search">Search by Name</label>
+                <input type="text" class="form-control" id="search" formControlName="searchInput">
+              </form>
+            </div>
+            <div class="col-md-3">
+              <button id="search-btn" (click)="searchByName()" class="btn btn-primary">Apply Filter</button>
+              <button id="search-btn" (click)="clearFilter()" class="btn btn-danger">Clear Filter</button>
+            </div>
+          </div> 
+            <div class="main-table">
+              <table class="table table-hover">
+                <thead>
+                  <tr class="thead-light">
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Day of Week</th>
+                    <th>Time</th>
+                    <th>Start and End Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let program of programs">
+                    <ng-container *ngIf="program.capacity > 0 || isStaff">
+                      <td>{{program.name}}</td>
+                      <td>{{program.location}}</td>
+                      <td>{{program.day}}</td> 
+                      <td>{{program.startTime}} - {{program.endTime}}</td>
+                      <td>{{program.startDate}} - {{program.endDate}}</td>
+                      <td> 
+                        <div>
+                          <button *ngIf="!isStaff && !isSignedUp(program)" id="{{program._id}}" class="btn btn-primary" (click)="openProgamModal(program)" data-toggle="modal" data-target="#programSignUp">Sign Up</button>
+                          <button *ngIf="!isStaff && isSignedUp(program)" disabled class="btn btn-primary">Sign Up</button>
+                          <button *ngIf="isStaff" class="btn btn-secondary" data-toggle="modal" (click)="openModifyModal(program)" data-target="#programCreate"><i class="fa fa-cog"></i></button>
+                          <button *ngIf="isStaff" class="btn btn-danger" data-toggle="modal" (click)="openRemoveModal(program)" data-target="#removeProgram"><i class="fa fa-trash"></i></button>
+                        </div>
+                      </td>
+                    </ng-container>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+  </div>
+<div class="modal fade" id="programSignUp" tabindex="-1" role="dialog" aria-labelledby="signUp" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="signUp">Program Sign Up</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="programViewForm">
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <textarea [disabled]="true" style="border: none" class="form-control" rows="3" formControlName="description"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="fee">Fee</label>
+                    <input [disabled]="true" style="border: none" class="form-control" id="fee" formControlName="fee">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="capacity">Capacity Left</label>
+                    <input [disabled]="true" style="border: none" class="form-control" id="capacity" formControlName="capacity">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary float-right" data-dismiss="modal" (click)="signUp()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="removeProgram" tabindex="-1" role="dialog" aria-labelledby="removeProgram" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeProgram">Remove Program</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                      <span>Are you sure you want to remove this program?</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary float-right" data-dismiss="modal" (click)="removeProgram(programId)">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="programCreate" tabindex="-1" role="dialog" aria-labelledby="programCreate" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 *ngIf="!isModding" class="modal-title" id="programCreate">Create New Program</h5>
+                <h5 *ngIf="isModding" class="modal-title" id="programCreate">Modify Program</h5>
+                <button type="button" class="close" (click)="resetForm(programForm)" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="programForm">
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="programName">Program Name</label>
+                        <input type="text" class="form-control" id="programName" formControlName="programName" placeholder="Program Name">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" id="location" formControlName="location" placeholder="Upper Gym">
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <label for="description">Description</label>
+                        <textarea type="text" class="form-control" rows="3" id="description" formControlName="description" 
+                        placeholder="Description of your program"></textarea> 
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="capacity">Capacity</label>
+                         <input type="number" class="form-control" id="capacity" formControlName="capacity" placeholder="10">
+                       </div>
+                     <div class="form-group col-md-6">
+                         <label for="fee">Fee</label>
+                         <input type="number" class="form-control" formControlName="fee" placeholder="$60" id="fee">
+                       </div>
+                     </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-12">
+                        <div>
+                          <label for="monday">Mon</label>
+                          <label for="tuesday">Tues</label>
+                          <label for="wednesday">Wed</label>
+                          <label for="thursday">Thur</label>
+                          <label for="friday">Fri</label>
+                          <label for="saturday">Sat</label>
+                          <label for="sunday">Sun</label>
+                        </div>
+                        <div class="weekDays-selector">
+                          <input type="checkbox" id="monday" class="weekday" formControlName="monday" value="Monday"/>
+                          <input type="checkbox" id="tuesday" class="weekday"formControlName="tuesday" value="Tuesday"/>
+                          <input type="checkbox" id="wednesday" class="weekday" formControlName="wednesday"/>
+                          <input type="checkbox" id="thursday" class="weekday" formControlName="thursday"/>
+                          <input type="checkbox" id="friday" class="weekday" formControlName="friday"/>
+                          <input type="checkbox" id="saturday" class="weekday" formControlName="saturday"/>
+                          <input type="checkbox" id="sunday" class="weekday" formControlName="sunday"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="timeStart">Time Start</label>
+                        <input type="time" class="form-control" formControlName="timeStart" id="timeStart">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="timeEnd">Time End</label>
+                        <input type="time" class="form-control" formControlName="timeEnd" id="timeEnd">
+                      </div>
+                    </div> 
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="dateStart">Date Start</label>
+                        <input type="date" class="form-control" formControlName="dateStart" id="dateStart">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="dateEnd">Date End</label>
+                        <input type="date" class="form-control" formControlName="dateEnd" id="dateEnd">
+                      </div>
+                    </div>
+                  </form>
+              </div>  
+              <div class="modal-footer">
+                  <button *ngIf="!isModding" type="submit" data-dismiss="modal" (click)="updateOrCreateProgram()" class="btn btn-primary float-right">Create</button>
+                  <button *ngIf="isModding" type="submit" data-dismiss="modal"  (click)="updateOrCreateProgram()" class="btn btn-primary float-right">Save</button>   
+            </div>
+        </div>
+    </div>
+</div>

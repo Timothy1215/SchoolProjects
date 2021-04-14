@@ -1,0 +1,17 @@
+.letters{
+    margin: 0 .1em;
+    padding:.2em;
+}
+
+input[type="text"]{
+    width: 3em;
+    margin: 0 .25em 0 1em;
+}
+
+.container{
+    margin: 1em 3em !important;
+    padding: .5em;
+    background-color: rgb(236, 233, 233);
+    border: 1px solid gray;
+    border-radius: 2.5px;
+} 

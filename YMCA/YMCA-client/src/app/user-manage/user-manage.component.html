@@ -1,0 +1,155 @@
+<div class="container container-top">
+    <div class="card main">
+        <div class="card-header">
+            <h3 style="text-align: center;"><strong>User Management</strong></h3>
+            <button id="createNewBtn" class="btn btn-success float-right" data-toggle="modal" (click)="openCreateModal()" data-target="#userCreate">Create New User</button>
+            <button class="btn btn-info float-left" [routerLink]="['/home']">Program Management</button>
+        </div>
+        <div class="card-body menu">
+          <form [formGroup]="searchForm">
+          <div class="row">
+            <div class="col-md-4">
+                <label for="searchFirst">Search by First Name</label>
+                <input type="text" class="form-control" id="searchFirst" formControlName="searchFirst">    
+            </div>
+            <div class="col-md-5">
+              <label for="searchLast">Search by Last Name</label>
+              <input type="text" class="form-control" id="searchLast" formControlName="searchLast">    
+            </div>
+            <div class="col-md-3">
+              <button id="search-btn" (click)="searchByName()" class="btn btn-primary">Apply Filter</button>
+              <button id="search-btn" (click)="clearFilter()" class="btn btn-danger">Clear Filter</button>
+            </div>
+          </div>
+          </form>
+            <div class="main-table">
+              <table class="table table-hover">
+                <thead>
+                  <tr class="thead-light">
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                    <th>Programs</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of users">
+                    <ng-container>
+                      <td *ngIf="user.active">{{user.firstName}}</td>
+                      <td *ngIf="user.active">{{user.lastName}}</td>
+                      <td *ngIf="user.active">{{user.username}}</td> 
+                      <td *ngIf="!user.active" style="color: red;">{{user.firstName}}</td>
+                      <td *ngIf="!user.active" style="color: red;">{{user.lastName}}</td>
+                      <td *ngIf="!user.active" style="color: red;">{{user.username}}</td> 
+                      <td> 
+                        <div>
+                          <button *ngIf="!user.staff && user.active" class="btn btn-info" data-toggle="modal" (click)="openViewModal(user)" data-target="#programView">View Programs</button>
+                        </div>
+                      </td>
+                      <td>
+                        <button class="btn btn-secondary" data-toggle="modal" (click)="openModifyModal(user)" data-target="#userCreate"><i class="fa fa-cog"></i></button>
+                        <button *ngIf="user.active" class="btn btn-danger" data-toggle="modal" (click)="openRemoveModal(user)" data-target="#removeUser"><i class="fa fa-trash"></i></button>  
+                        <button *ngIf="!user.active" (click)="makeUserActive(user)"class="btn btn-success"><i class="fa fa-plus"></i></button>  
+                      </td>
+                    </ng-container>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
+  </div>
+<div class="modal fade" id="removeUser" tabindex="-1" role="dialog" aria-labelledby="removeUser" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeUser">Remove User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                      <span>Are you sure you want to remove this user (make inactive)?</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary float-right" data-dismiss="modal" (click)="removeUser(userId)">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="programView" tabindex="-1" role="dialog" aria-labelledby="programView" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 >User's Programs</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+        <app-user-home [userView]="user" [isStaffView]="true"></app-user-home>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary float-right" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+  </div>
+</div>
+<div class="modal fade" id="userCreate" tabindex="-1" role="dialog" aria-labelledby="userCreate" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 *ngIf="!isModding" class="modal-title" id="userCreate">Create New User</h5>
+                <h5 *ngIf="isModding" class="modal-title" id="userCreate">Modify User</h5>
+                <button type="button" class="close" (click)="resetForm(userForm)" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="userForm">
+                <div class="input-group form-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                  </div>
+                  <input id="fname" name="fname" type="text" class="form-control" placeholder="First Name" formControlName="firstName"> 
+                </div>
+                <div class="input-group form-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                  </div>
+                  <input id="lname" name="lname" type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+                </div>
+                <div class="input-group form-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                  </div>
+                  <input id="uname" name="uname" type="text" class="form-control" placeholder="Username" formControlName="username">
+                </div>
+                <div *ngIf="!isModding" class="input-group form-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-key"></i></span>
+                  </div>
+                  <input id="password" name="password" type="password" class="form-control" placeholder="Password" formControlName="password">
+                </div>
+                <div class="input-group form-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Staff Member</span>
+                  </div>
+                  <input id="isStaff" name="isStaff" type="checkbox" class="form-control" formControlName="isStaff">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Member</span>
+                  </div>
+                  <input id="isMember" name="isMember" type="checkbox" class="form-control" formControlName="isMember">
+                </div>
+              </form>
+              </div>  
+              <div class="modal-footer">
+                  <button *ngIf="!isModding" type="submit" data-dismiss="modal"(click)="attemptRegister()" class="btn btn-primary float-right">Create</button>
+                  <button *ngIf="isModding" type="submit" data-dismiss="modal" (click)="attemptRegister()" class="btn btn-primary float-right">Save</button>   
+            </div>
+        </div>
+    </div>
+</div>
